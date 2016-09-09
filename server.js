@@ -1,6 +1,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient;
+const config = require('./config.js');
 const app = express()
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -22,7 +23,7 @@ app.post('/quotes', (req, res) => {
 
 let db;
 
-MongoClient.connect('mongodb://<dbuser>:<dbpassword>@ds019936.mlab.com:19936/movie-quotes', (err, database) => {
+MongoClient.connect(`mongodb://${config.db_username}:${config.db_password}@ds019936.mlab.com:19936/movie-quotes`, (err, database) => {
   if (err) return console.log(err)
   db = database
   app.listen(3000, () => {
