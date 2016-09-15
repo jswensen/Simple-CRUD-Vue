@@ -4,6 +4,8 @@ const MongoClient = require('mongodb').MongoClient;
 const config = require('./config.js');
 const app = express()
 
+app.set('view engine', 'ejs')
+
 let db;
 
 app.use(bodyParser.urlencoded({extended: true}))
@@ -11,11 +13,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 // app.listen(3000, () => { console.log('listening on port 3000')})
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html')
-
-  db.collection('quotes').find().toArray(function(err, results) {
-    console.log(results)
-    // send HTML file populated with quotes here
+  db.collection('quotes').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    // renders index.ejs
+    res.render('index.ejs', {quotes: result})
   })
 })
 
