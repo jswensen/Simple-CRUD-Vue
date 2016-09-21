@@ -5,6 +5,7 @@ const config = require('./config.js');
 const app = express()
 
 app.set('view engine', 'ejs')
+app.use(express.static('public'))
 
 let db;
 
