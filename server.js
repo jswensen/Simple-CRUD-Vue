@@ -6,10 +6,10 @@ const app = express()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 let db;
-
-app.use(bodyParser.urlencoded({extended: true}))
 
 // app.listen(3000, () => { console.log('listening on port 3000')})
 
@@ -30,6 +30,21 @@ app.post('/quotes', (req, res) => {
   })
 })
 
+app.put('/quotes', (req, res) => {
+  db.collection('quotes')
+  .findOneAndUpdate({name: 'Black Panther'}, {
+    $set: {
+      name: req.body.name,
+      quote: req.body.quote
+    }
+  }, {
+    sort: {_id: -1},
+    upsert: true
+  }, (err, result) => {
+    if (err ) return res.send(err)
+    res.send(result)
+  })
+})
 MongoClient.connect(`mongodb://${config.db_username}:${config.db_password}@ds019936.mlab.com:19936/movie-quotes`, (err, database) => {
   if (err) return console.log(err)
   db = database
