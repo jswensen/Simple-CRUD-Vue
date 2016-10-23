@@ -32,7 +32,7 @@ app.post('/quotes', (req, res) => {
 
 app.put('/quotes', (req, res) => {
   db.collection('quotes')
-  .findOneAndUpdate({name: 'Black Panther'}, {
+  .findOneAndUpdate({name: '111'}, {
     $set: {
       name: req.body.name,
       quote: req.body.quote
@@ -45,6 +45,15 @@ app.put('/quotes', (req, res) => {
     res.send(result)
   })
 })
+
+app.delete('/quotes', (req, res) => {
+  db.collection('quotes').findOneAndDelete({name: req.body.name},
+  (err, result) => {
+    if (err) return res.send(500, err)
+    res.send('A darth vadar quote got deleted')
+  })
+})
+
 MongoClient.connect(`mongodb://${config.db_username}:${config.db_password}@ds019936.mlab.com:19936/movie-quotes`, (err, database) => {
   if (err) return console.log(err)
   db = database
