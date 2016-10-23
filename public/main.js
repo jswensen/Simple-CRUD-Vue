@@ -17,6 +17,9 @@ update.addEventListener('click', function() {
     //need to do some DOM manip here
     window.location.reload(true)
   })
+  .catch(err => {
+    console.log(err);
+  })
 });
 
 var del = document.getElementById('delete');
@@ -30,11 +33,12 @@ del.addEventListener('click', function () {
     })
   })
   .then(res => {
+    console.log(res);
     if (res.ok) return res.json()
   })
   .then(data => {
     console.log(data)
-    window.location.reload()
+    window.location.reload(true)
   })
   .catch(err => {
     console.log(err);
