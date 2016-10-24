@@ -38,6 +38,7 @@ del.addEventListener('click', function () {
   })
   .then(data => {
     console.log(data)
+//need to do some DOM manip here
     window.location.reload(true)
   })
   .catch(err => {
