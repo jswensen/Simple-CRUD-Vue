@@ -27,6 +27,13 @@ var testVue = new Vue({
         this.items.push(this.item);
         this.item = { name: '', quote: '' };
       }
+    },
+    deleteQuote: function(index) {
+      if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
+        // $remove is a Vue convenience method similar to splice
+        alert(this.items);
+        this.items.splice(index,1); //$remove 
+      }
     }
   } //methods
 })
