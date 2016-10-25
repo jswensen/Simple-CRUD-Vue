@@ -2,7 +2,7 @@ var testVue = new Vue({
   el: '#app',
   data : {
     header : 'TESTING THE FORGE',
-    item: { name: '', quote: '' },
+    item: { id: '', name: '', quote: '' },
     items: []
   },
   created: function() {
@@ -23,7 +23,8 @@ var testVue = new Vue({
         quote: 'There\'s only one god ma\'am, and I\'m pretty sure he doesn\'t dress like that.'
       }];
 
-      this.$http.get('quotes').then((items) => {
+      this.$http.get('quotes')
+        .then((items) => {
           //this.$set('events', events);
           console.log(items.body);
           this.items = items.body || []; //prefer this to $set
@@ -33,13 +34,23 @@ var testVue = new Vue({
         });
     },
     addQuote: function() {
-      if(this.item.name) {
-        this.items.push(this.item);
-        this.item = { name: '', quote: '' };
-      }
+
+      this.$http.post('quotes', this.item)
+        .then((response) => {
+          this.items.push(this.item);
+          console.log("Item added!");
+        }, (error) => {
+          console.log(error);
+        });
     },
     deleteQuote: function(index) {
       if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
+        // this.$http.delete('quotes' + item.id)
+        //   .then((response) => {
+        //     this.items.splice(index,1); //$remove
+        //   }, (error) => {
+        //     console.log(error);
+        //   });
         this.items.splice(index,1); //$remove
       }
     }
