@@ -23,11 +23,11 @@ var testVue = new Vue({
         quote: 'There\'s only one god ma\'am, and I\'m pretty sure he doesn\'t dress like that.'
       }];
 
-      this.items = items || []; //prefer this to $set
-
       this.$http.get('quotes').then((items) => {
           //this.$set('events', events);
-          alert('booya:' + items);
+          console.log(items.body);
+          this.items = items.body || []; //prefer this to $set
+
         }, (error) => {
           alert(error);
         });

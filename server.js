@@ -28,8 +28,8 @@ app.get('/quotes', (req, res) => {
   db.collection('quotes').find().toArray((err, result) => {
     if (err) return console.log(err)
     else {
-      console.log('sooo huh?');
-      return result
+      console.log('result');
+      res.send(result);
     }
   })
 })
