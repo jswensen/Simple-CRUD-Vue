@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>MY APP</title>
+    <title>Simple CRUD Vue</title>
+
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+
   </head>
 <body>
 
@@ -15,11 +18,18 @@
   <% } %>
 </ul>
 
-<form action="/quotes" method="POST">
-  <input type="text" placeholder="name" name="name">
-  <input type="text" placeholder="quote" name="quote">
-  <button type="submit">Submit</button>
-</form>
+<div id="app" class="panel-heading">
+  <p>{{ header }}</p>
+  <div class="panel-body">
+    <!-- <form action="/quotes" method="POST"> -->
+    <div class="form-group">
+      <input type="text" placeholder="Name" v-model="item.name">
+      <input type="text" placeholder="Quote" v-model="item.quote">
+      <button class="btn btn-primary" v-on:click="addQuote">Submit</button>
+    </div>
+    <!-- </form> -->
+  </div>
+</div>
 
 <div>
   <h2>Replace last quote written by Master Yoda with a quote written by Darth Vadar</h2>
@@ -31,6 +41,8 @@
   <button id="delete"> Delete first Darth Vadar quote </button>
 </div>
 
+<script src="/static/vue/vue.js"></script>
+<script src="/static/vue-resource/vue-resource.js"></script>
 <script src="main.js"></script>
 
 </body>

@@ -1,11 +1,14 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const MongoClient = require('mongodb').MongoClient;
-const config = require('./config.js');
+const MongoClient = require('mongodb').MongoClient
+const config = require('./config.js')
 const app = express()
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
+app.use('/static/css', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
+app.use('/static/vue', express.static(__dirname + '/node_modules/vue/dist/'))
+app.use('/static/vue-resource', express.static(__dirname + '/node_modules/vue-resource/dist/'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
