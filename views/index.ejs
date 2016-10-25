@@ -29,6 +29,21 @@
     </div>
     <!-- </form> -->
   </div>
+
+  <div class="list-group">
+
+    <a href="#" class="list-group-item" v-for="item in items">
+      <h4 class="list-group-item-heading">
+        <i class=""></i>
+        {{ item.name }}
+      </h4>
+
+      <p class="list-group-item-text" v-if="item.quote">{{ item.quote }}</p>
+
+      <button class="btn btn-xs btn-danger" v-on:click="deleteEvent($index)">Delete</button>
+    </a>
+
+  </div>
 </div>
 
 <div>
