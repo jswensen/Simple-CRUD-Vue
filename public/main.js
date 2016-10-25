@@ -11,18 +11,6 @@ var testVue = new Vue({
 
   methods: {
     fetchQuotes: function() {
-      let items = [
-      {
-        name: 'Hudson',
-        quote: 'What do you mean they cut the power!?  They\'re animals!!'
-      }, {
-        name: 'Venkman',
-        quote: 'Back off man, I\'m a scientist.'
-      }, {
-        name: 'Captain America',
-        quote: 'There\'s only one god ma\'am, and I\'m pretty sure he doesn\'t dress like that.'
-      }];
-
       this.$http.get('quotes')
         .then((items) => {
           //this.$set('events', events);
