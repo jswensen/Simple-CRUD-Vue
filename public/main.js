@@ -14,13 +14,23 @@ var testVue = new Vue({
       let items = [
       {
         name: 'Hudson',
-        quote: 'Why don\'t you put her in charge!?'
-      },
-      {
-        name: 'Thor',
-        quote: 'You humans are so petty... and tiny',
+        quote: 'What do you mean they cut the power!?  They\'re animals!!'
+      }, {
+        name: 'Venkman',
+        quote: 'Back off man, I\'m a scientist.'
+      }, {
+        name: 'Captain America',
+        quote: 'There\'s only one god ma\'am, and I\'m pretty sure he doesn\'t dress like that.'
       }];
+
       this.items = items || []; //prefer this to $set
+
+      this.$http.get('quotes').then((items) => {
+          //this.$set('events', events);
+          alert('booya:' + items);
+        }, (error) => {
+          alert(error);
+        });
     },
     addQuote: function() {
       if(this.item.name) {
@@ -30,9 +40,7 @@ var testVue = new Vue({
     },
     deleteQuote: function(index) {
       if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
-        // $remove is a Vue convenience method similar to splice
-        alert(this.items);
-        this.items.splice(index,1); //$remove 
+        this.items.splice(index,1); //$remove
       }
     }
   } //methods
@@ -40,7 +48,7 @@ var testVue = new Vue({
 
 
 
-
+/**
 var update = document.getElementById('update');
 
 update.addEventListener('click', function() {
@@ -88,3 +96,4 @@ del.addEventListener('click', function () {
     console.log(err);
   })
 })
+**/

@@ -24,6 +24,16 @@ app.get('/', (req, res) => {
   })
 })
 
+app.get('/quotes', (req, res) => {
+  db.collection('quotes').find().toArray((err, result) => {
+    if (err) return console.log(err)
+    else {
+      console.log('sooo huh?');
+      return result
+    }
+  })
+})
+
 app.post('/quotes', (req, res) => {
   db.collection('quotes').save(req.body, (err, result) => {
     if (err) return console.log(err)
@@ -35,7 +45,7 @@ app.post('/quotes', (req, res) => {
 
 app.put('/quotes', (req, res) => {
   db.collection('quotes')
-  .findOneAndUpdate({name: '111'}, {
+  .findOneAndUpdate({name: 'Darth Vader'}, {
     $set: {
       name: req.body.name,
       quote: req.body.quote
@@ -46,6 +56,7 @@ app.put('/quotes', (req, res) => {
   }, (err, result) => {
     if (err ) return res.send(err)
     res.send(result)
+    console.log('modified record');
   })
 })
 
