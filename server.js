@@ -4,7 +4,6 @@ const MongoClient = require('mongodb').MongoClient
 const config = require('./config.js')
 const app = express()
 
-app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use('/static/css', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
 app.use('/static/vue', express.static(__dirname + '/node_modules/vue/dist/'))
@@ -15,8 +14,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 let db;
 
 app.get('/', (req, res) => {
-  res.render('index.ejs')
-})
+   res.sendFile('index.html', {
+     root: 'views'
+   });
+});
 
 app.get('/quotes', (req, res) => {
   db.collection('quotes').find().toArray((err, result) => {
