@@ -13,7 +13,6 @@ var testVue = new Vue({
     fetchQuotes: function() {
       this.$http.get('quotes')
         .then((items) => {
-          //this.$set('events', events);
           console.log(items.body);
           this.items = items.body || []; //prefer this to $set
 
@@ -33,12 +32,12 @@ var testVue = new Vue({
     },
     deleteQuote: function(index) {
       if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
-        // this.$http.delete('quotes' + item.id)
-        //   .then((response) => {
-        //     this.items.splice(index,1); //$remove
-        //   }, (error) => {
-        //     console.log(error);
-        //   });
+        this.$http.delete('quotes' + item.id)
+          .then((response) => {
+            this.items.splice(index,1); //$remove
+          }, (error) => {
+            console.log(error);
+          });
         this.items.splice(index,1); //$remove
       }
     }
