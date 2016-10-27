@@ -26,19 +26,21 @@ var testVue = new Vue({
         .then((response) => {
           this.items.push(this.item);
           console.log("Item added!");
+          console.log(response);
         }, (error) => {
           console.log(error);
         });
     },
     deleteQuote: function(index) {
+      console.log(this.items[index].name);
       if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
-        this.$http.delete('quotes' + item.id)
+        this.$http.delete('quotes/' + JSON.stringify({'name' : this.items[index].name}))
           .then((response) => {
+            console.log('success');
             this.items.splice(index,1); //$remove
           }, (error) => {
             console.log(error);
           });
-        this.items.splice(index,1); //$remove
       }
     }
   } //methods

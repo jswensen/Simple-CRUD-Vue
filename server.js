@@ -23,7 +23,6 @@ app.get('/quotes', (req, res) => {
   db.collection('quotes').find().toArray((err, result) => {
     if (err) return console.log(err)
     else {
-      console.log('result');
       res.send(result);
     }
   })
@@ -33,8 +32,10 @@ app.post('/quotes', (req, res) => {
   db.collection('quotes').save(req.body, (err, result) => {
     if (err) return console.log(err)
 
+    res.send(result)
     console.log('saved to database')
-    res.redirect('/')
+    console.log(result);
+    //res.redirect('/')
   })
 })
 
@@ -56,7 +57,9 @@ app.put('/quotes', (req, res) => {
 })
 
 app.delete('/quotes', (req, res) => {
-  db.collection('quotes').findOneAndDelete({name: req.body.name},
+  console.log(req.params);
+  db.collection('quotes')
+  .findOneAndDelete({name: req.params.name},
   (err, result) => {
     if (err) return res.send(500, err)
     else res.send(result);
