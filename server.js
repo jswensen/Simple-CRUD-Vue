@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
 const config = require('./config.js')
+const uuid = require('uuid');
 const app = express()
 
 app.use(express.static('public'))
@@ -29,6 +30,8 @@ app.get('/quotes', (req, res) => {
 })
 
 app.post('/quotes', (req, res) => {
+  console.log(req.body);
+  req.body.id = uuid.v1();
   db.collection('quotes').save(req.body, (err, result) => {
     if (err) return console.log(err)
 
@@ -41,7 +44,7 @@ app.post('/quotes', (req, res) => {
 
 app.put('/quotes', (req, res) => {
   db.collection('quotes')
-  .findOneAndUpdate(req.body}, {
+  .findOneAndUpdate(req.body, {
     $set: {
       name: req.body.name,
       quote: req.body.quote
@@ -56,10 +59,9 @@ app.put('/quotes', (req, res) => {
   })
 })
 
-app.delete('/quotes', (req, res) => {
-  console.log(req.params);
+app.put('/quotes/delete', (req, res) => {
   db.collection('quotes')
-  .findOneAndDelete({name: req.params.name},
+  .findOneAndDelete({name: req.body.id},
   (err, result) => {
     if (err) return res.send(500, err)
     else res.send(result);

@@ -21,7 +21,6 @@ var testVue = new Vue({
         });
     },
     addQuote: function() {
-
       this.$http.post('quotes', this.item)
         .then((response) => {
           this.items.push(this.item);
@@ -34,7 +33,7 @@ var testVue = new Vue({
     deleteQuote: function(index) {
       console.log(this.items[index].name);
       if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
-        this.$http.delete('quotes/' + JSON.stringify({'name' : this.items[index].name}))
+        this.$http.put('quotes/delete', this.item)
           .then((response) => {
             console.log('success');
             this.items.splice(index,1); //$remove
