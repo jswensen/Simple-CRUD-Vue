@@ -42,6 +42,17 @@ var testVue = new Vue({
             console.log(error);
           });
       }
+    },
+    updateQuote: function(index) {
+      if(confirm(`Are you sure you want to update this quote at index ${index}?`)) {
+        this.$http.put('quotes' + JSON.stringify({'name' : this.items[index].name}))
+          .then((response) => {
+            console.log('update success');
+
+          }, (error) => {
+            console.log(error);
+          });
+      }
     }
   } //methods
 })
