@@ -60,8 +60,9 @@ app.put('/quotes', (req, res) => {
 })
 
 app.put('/quotes/delete', (req, res) => {
+  console.log(req.body);
   db.collection('quotes')
-  .findOneAndDelete({name: req.body.id},
+  .findOneAndDelete({id: req.body.id},
   (err, result) => {
     if (err) return res.send(500, err)
     else res.send(result);

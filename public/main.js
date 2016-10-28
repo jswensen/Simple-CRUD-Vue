@@ -33,7 +33,7 @@ var testVue = new Vue({
     deleteQuote: function(index) {
       console.log(this.items[index].name);
       if(confirm(`Are you sure you want to delete this quote at index ${index}?`)) {
-        this.$http.put('quotes/delete', this.item)
+        this.$http.put('quotes/delete', this.items[index])
           .then((response) => {
             console.log('success');
             this.items.splice(index,1); //$remove
