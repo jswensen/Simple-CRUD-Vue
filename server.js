@@ -60,7 +60,7 @@ app.put('/quotes', (req, res) => {
 })
 
 app.put('/quotes/delete', (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   db.collection('quotes')
   .findOneAndDelete({id: req.body.id},
   (err, result) => {
