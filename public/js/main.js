@@ -29,6 +29,7 @@ var testVue = new Vue({
       this.$http.post('quotes', this.item)
         .then((response) => {
           this.items.push(this.item);
+          location.reload(); //temp fix till decouple of new record
           console.log("Item added!");
           console.log(response);
         }, (error) => {

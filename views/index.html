@@ -30,7 +30,6 @@
 
             <div class="modal-footer">
               <slot name="footer">
-                default footer
                 <button class="modal-default-button" @click="$emit('close')">
                   OK
                 </button>
@@ -65,18 +64,21 @@
       <p class="list-group-item-text" v-if="item.quote">{{ item.quote }}</p>
 
       <button class="btn btn-xs btn-danger" v-on:click="deleteQuote(index)">Delete</button>
-      <button class="btn btn-xs " v-on:click="updateQuote(index)">Update</button>
+      <button id="show-modal" @click="showModal = true">Update</button>
+      <!--<button class="btn btn-xs " v-on:click="updateQuote(index)">Update</button>
     </div>
 
   </div>
-  <button id="show-modal" @click="showModal = true">Update</button>
+
   <!-- use the modal component, pass in the prop -->
   <modal v-if="showModal" @close="showModal = false">
-    <!--
-      you can use custom content here to overwrite
-      default content
-    -->
-    <h3 slot="header">custom header</h3>
+
+
+    <div slot ="body">
+      <input type="text" placeholder="Quote" v-model="item.quote">
+    </div>
+
+    <h3 slot="header">{{ item.name }}</h3>
   </modal>
 
 </div>
