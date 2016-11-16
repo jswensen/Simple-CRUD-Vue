@@ -44,9 +44,8 @@ app.post('/quotes', (req, res) => {
 
 app.put('/quotes', (req, res) => {
   db.collection('quotes')
-  .findOneAndUpdate(req.body, {
+  .findOneAndUpdate(req.body.id, {
     $set: {
-      name: req.body.name,
       quote: req.body.quote
     }
   }, {

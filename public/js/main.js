@@ -1,4 +1,4 @@
-var modalTemplate = Vue.component('modal', {
+Vue.component('modal', {
   template: '#modal-template'
 })
 
@@ -26,11 +26,12 @@ var testVue = new Vue({
         });
     },
     addQuote: function() {
+      //what a cluster fuck
+console.log(this.item);
       this.$http.post('quotes', this.item)
         .then((response) => {
           this.items.push(this.item);
-          location.reload(); //temp fix till decouple of new record
-          console.log("Item added!");
+          //location.reload(); //temp fix till decouple of new record
           console.log(response);
         }, (error) => {
           console.log(error);
