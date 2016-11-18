@@ -1,6 +1,6 @@
-Vue.component('modal', {
-  template: '#modal-template'
-})
+// Vue.component('modal', {
+//   template: '#modal-template'
+// })
 
 var testVue = new Vue({
   el: '#app',
@@ -8,7 +8,7 @@ var testVue = new Vue({
     header : 'TESTING THE FORGE',
     item: { id: '', name: '', quote: '' },
     items: [],
-    showModal: false
+    //showModal: false
   },
   created: function() {
     this.fetchQuotes();
@@ -18,21 +18,18 @@ var testVue = new Vue({
     fetchQuotes: function() {
       this.$http.get('quotes')
         .then((items) => {
-          console.log(items.body);
           this.items = items.body || []; //prefer this to $set
-
         }, (error) => {
           alert(error);
         });
     },
     addQuote: function() {
-      //what a cluster fuck
-console.log(this.item);
       this.$http.post('quotes', this.item)
         .then((response) => {
+          //add generated ID
+          this.item.id = response.body.id;
           this.items.push(this.item);
           //location.reload(); //temp fix till decouple of new record
-          console.log(response);
         }, (error) => {
           console.log(error);
         });

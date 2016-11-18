@@ -9,6 +9,7 @@ app.use(express.static('public'))
 app.use('/static/css', express.static(__dirname + '/node_modules/bootstrap/dist/css/'));
 app.use('/static/vue', express.static(__dirname + '/node_modules/vue/dist/'))
 app.use('/static/vue-resource', express.static(__dirname + '/node_modules/vue-resource/dist/'))
+// app.use('/static/uuid', express.static(__dirname + '/node_modules/uuid'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
@@ -30,14 +31,13 @@ app.get('/quotes', (req, res) => {
 })
 
 app.post('/quotes', (req, res) => {
-  console.log(req.body);
   req.body.id = uuid.v1();
   db.collection('quotes').save(req.body, (err, result) => {
     if (err) return console.log(err)
 
-    res.send(result)
+    res.send(result.ops[0])
     console.log('saved to database')
-    console.log(result);
+    console.log(result.ops[0]);
     //res.redirect('/')
   })
 })
