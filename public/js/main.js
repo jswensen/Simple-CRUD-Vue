@@ -29,6 +29,7 @@ var testVue = new Vue({
           //add generated ID
           this.item.id = response.body.id;
           this.items.push(this.item);
+          this.item = {id : '', name : '', quote : ''};
           //location.reload(); //temp fix till decouple of new record
         }, (error) => {
           console.log(error);
