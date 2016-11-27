@@ -1,14 +1,14 @@
-// Vue.component('modal', {
-//   template: '#modal-template'
-// })
+Vue.component('modal', {
+  template: '#modal-template'
+})
 
 var testVue = new Vue({
   el: '#app',
   data : {
-    header : 'TESTING THE FORGE',
+    header : 'Movie Quotes',
     item: { id: '', name: '', quote: '' },
     items: [],
-    //showModal: false
+    showModal: false
   },
   created: function() {
     this.fetchQuotes();
@@ -18,7 +18,7 @@ var testVue = new Vue({
     fetchQuotes: function() {
       this.$http.get('quotes')
         .then((items) => {
-          this.items = items.body || []; //prefer this to $set
+          this.items = items.body || [];  //prefer this to $set
         }, (error) => {
           alert(error);
         });
@@ -26,11 +26,9 @@ var testVue = new Vue({
     addQuote: function() {
       this.$http.post('quotes', this.item)
         .then((response) => {
-          //add generated ID
-          this.item.id = response.body.id;
+          this.item.id = response.body.id;  //add generated ID
           this.items.push(this.item);
           this.item = {id : '', name : '', quote : ''};
-          //location.reload(); //temp fix till decouple of new record
         }, (error) => {
           console.log(error);
         });
@@ -41,13 +39,15 @@ var testVue = new Vue({
         this.$http.put('quotes/delete', this.items[index])
           .then((response) => {
             console.log('success');
-            this.items.splice(index,1); //$remove
+            this.items.splice(index,1);  //$remove
           }, (error) => {
             console.log(error);
           });
       }
     },
-    updateQuote: function(index) {
+    updateQuote: function() {
+      console.log('UPDATE AT: ');
+      console.log(index);
       if(confirm(`Are you sure you want to update this quote at index ${index}?`)) {
         this.$http.put('quotes' + JSON.stringify({'name' : this.items[index].name}))
           .then((response) => {
@@ -56,57 +56,7 @@ var testVue = new Vue({
           }, (error) => {
             console.log(error);
           });
-      }
+      } else { return }
     }
   } //methods
 })
-
-/**
-var update = document.getElementById('update');
-
-update.addEventListener('click', function() {
-  fetch('quotes', {
-    method: 'put',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      'name': 'Darth Vader',
-      'quote': 'Bring my ship.'
-    })
-  })
-  .then(res => {
-    if (res.ok) return res.json()
-  })
-  .then(data => {
-    console.log(data)
-    //need to do some DOM manip here
-    window.location.reload(true)
-  })
-  .catch(err => {
-    console.log(err);
-  })
-});
-
-var del = document.getElementById('delete');
-
-del.addEventListener('click', function () {
-  fetch('quotes', {
-    method: 'delete',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({
-      'name': 'Darth Vader'
-    })
-  })
-  .then(res => {
-    console.log(res);
-    if (res.ok) return res.json()
-  })
-  .then(data => {
-    console.log(data)
-//need to do some DOM manip here
-    window.location.reload(true)
-  })
-  .catch(err => {
-    console.log(err);
-  })
-})
-**/

@@ -10,34 +10,32 @@
   </head>
 <body>
 
-  <!-- <script type="text/x-template" id="modal-template">
-    <transition name="modal">
-      <div class="modal-mask">
-        <div class="modal-wrapper">
-          <div class="modal-container">
+<script type="text/x-template" id="modal-template">
+  <transition name="modal">
+    <div class="modal-mask">
+      <div class="modal-wrapper">
+        <div class="modal-container">
 
-            <div class="modal-header">
-              <slot name="header">
-              </slot>
-            </div>
+          <div class="modal-header">
+            <slot name="header">
+            </slot>
+          </div>
 
-            <div class="modal-body">
-              <slot name="body">
-              </slot>
-            </div>
+          <div class="modal-body">
+            <slot name="body">
+            </slot>
+          </div>
 
-            <div class="modal-footer">
-              <slot name="footer">
-                <button class="modal-default-button" @click="$emit('close')" >
-                  OK
-                </button>
-              </slot>
-            </div>
+          <div class="modal-footer">
+            <slot name="footer">
+
+            </slot>
           </div>
         </div>
       </div>
-    </transition>
-  </script> -->
+    </div>
+  </transition>
+</script>
 
 <div id="app" class="panel-heading">
   <p>{{ header }}</p>
@@ -62,23 +60,25 @@
       <p class="list-group-item-text" v-if="item.quote">Quote: {{ item.quote }}</p>
 
       <button class="btn btn-xs btn-danger" v-on:click="deleteQuote(index)">Delete</button>
-      <!-- <button id="show-modal" @click="showModal = true">Update</button> -->
+      <button id="show-modal" @click="showModal = true">Update</button>
     </div>
+
+    <!-- use the modal component, pass in the prop -->
+    <modal v-if="showModal" @close="showModal = false">
+
+
+      <div slot="body">
+        <input type="text" placeholder="quote" v-model="item.quote">
+      </div>
+
+      <div slot="footer">
+        <button class="modal-default-button" @click="$emit('close')" v-on:click="updateQuote(index)">Update</button>
+      </div>
+
+      <h3 slot="header">Name: {{ items }}</h3>
+    </modal>
 
   </div>
-
-  <!-- use the modal component, pass in the prop -->
-  <!-- <modal v-if="showModal" @close="showModal = false">
-
-
-    <div slot ="body">
-      <input type="text" placeholder="quote" v-model="item.quote">
-    </div>
-
-    <button class="btn btn-xs " v-on:click="updateQuote(index)">Update</button>
-
-    <h3 slot="header">{{ item.name }}</h3>
-  </modal> -->
 
 </div>
 
