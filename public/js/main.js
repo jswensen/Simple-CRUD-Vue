@@ -1,4 +1,5 @@
 Vue.component('modal', {
+  // props: ['id', 'name', 'quote'],
   template: '#modal-template'
 })
 
