@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Simple CRUD Vue</title>
+    <title>Vue ToDo</title>
 
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/modal.css">
@@ -41,9 +41,9 @@
   <p>{{ header }}</p>
   <div class="panel-body">
     <div class="form-group">
-      <input type="text" placeholder="Name" v-model="item.name">
-      <input type="text" placeholder="Quote" v-model="item.quote">
-      <button class="btn btn-primary" v-on:click="addQuote">Submit</button>
+      <input type="text" placeholder="Name" v-model="item.title">
+      <input type="text" placeholder="Description" v-model="item.description">
+      <button class="btn btn-primary" v-on:click="addItem">Submit</button>
     </div>
   </div>
 
@@ -54,12 +54,12 @@
       <h4 class="list-group-item-heading">
         <i class=""></i>
         ID: {{ item.id }} <br/>
-        Name: {{ item.name  }}
+        Title: {{ item.title  }}
       </h4>
 
-      <p class="list-group-item-text" v-if="item.quote">Quote: {{ item.quote }}</p>
+      <p class="list-group-item-text" v-if="item.description">Description: {{ item.description }}</p>
 
-      <button class="btn btn-xs btn-danger" v-on:click="deleteQuote(index)">Delete</button>
+      <button class="btn btn-xs btn-danger" v-on:click="deleteItem(index)">Delete</button>
       <button id="show-modal" @click="showModal = true">Update</button>
     </div>
 
@@ -67,12 +67,12 @@
     <modal v-if="showModal" @close="showModal = false">
 
       <div slot="body">
-        <input type="text" placeholder="quote" name="update-quote">
+        <input type="text" placeholder="description" name="update-item">
       </div>
 
       <div slot="footer">
         <button @click="$emit('close')">Cancel</button>
-        <button class="modal-default-button" @click="$emit('close')" v-on:click="updateQuote()">Update</button>
+        <button class="modal-default-button" @click="$emit('close')" v-on:click="updateItem()">Update</button>
       </div>
 
       <h3 slot="header">Name: </h3>

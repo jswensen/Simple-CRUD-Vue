@@ -1,13 +1,13 @@
 Vue.component('modal', {
-  ['id', 'name', 'title']
+  // props: ['id', 'title', 'description'],
   template: '#modal-template'
 })
 
 var testVue = new Vue({
   el: '#app',
   data : {
-    header : 'To Do List',
-    item: { id: '', name: '', title: '' },
+    header : 'Items',
+    item: { id: '', title: '', description: '' },
     items: [],
     showModal: false
   },
@@ -17,7 +17,7 @@ var testVue = new Vue({
 
   methods: {
     fetchItems: function() {
-      this.$http.get('titles')
+      this.$http.get('items')
         .then((items) => {
           this.items = items.body || [];  //prefer this to $set
         }, (error) => {
@@ -25,19 +25,19 @@ var testVue = new Vue({
         });
     },
     addItem: function() {
-      this.$http.post('titles', this.item)
+      this.$http.post('items', this.item)
         .then((response) => {
           this.item.id = response.body.id;  //add generated ID
           this.items.push(this.item);
-          this.item = {id : '', name : '', title : ''};
+          this.item = {id : '', title : '', description : ''};
         }, (error) => {
           console.log(error);
         });
     },
     deleteItem: function(index) {
-      console.log(this.items[index].name);
-      if(confirm(`Are you sure you want to delete this title at index ${index}?`)) {
-        this.$http.put('titles/delete', this.items[index])
+      console.log(this.items[index].title);
+      if(confirm(`Are you sure you want to delete this item at index ${index}?`)) {
+        this.$http.put('items/delete', this.items[index])
           .then((response) => {
             console.log('success');
             this.items.splice(index,1);  //$remove
@@ -49,8 +49,8 @@ var testVue = new Vue({
     updateItem: function() {
       console.log('UPDATE AT: ');
       console.log(index);
-      if(confirm(`Are you sure you want to update this title at index ${index}?`)) {
-        this.$http.put('titles' + JSON.stringify({'name' : this.items[index].name}))
+      if(confirm(`Are you sure you want to update this item at index ${index}?`)) {
+        this.$http.put('items' + JSON.stringify({'title' : this.items[index].title}))
           .then((response) => {
             console.log('update success');
 

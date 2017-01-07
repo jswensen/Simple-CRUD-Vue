@@ -21,8 +21,8 @@ app.get('/', (req, res) => {
    });
 });
 
-app.get('/quotes', (req, res) => {
-  db.collection('quotes').find().toArray((err, result) => {
+app.get('/items', (req, res) => {
+  db.collection('items').find().toArray((err, result) => {
     if (err) return console.log(err)
     else {
       res.send(result);
@@ -30,9 +30,9 @@ app.get('/quotes', (req, res) => {
   })
 })
 
-app.post('/quotes', (req, res) => {
+app.post('/items', (req, res) => {
   req.body.id = uuid.v1();
-  db.collection('quotes').save(req.body, (err, result) => {
+  db.collection('items').save(req.body, (err, result) => {
     if (err) return console.log(err)
 
     res.send(result.ops[0])
@@ -42,11 +42,11 @@ app.post('/quotes', (req, res) => {
   })
 })
 
-app.put('/quotes', (req, res) => {
-  db.collection('quotes')
+app.put('/items', (req, res) => {
+  db.collection('items')
   .findOneAndUpdate(req.body.id, {
     $set: {
-      quote: req.body.quote
+      item: req.body.item
     }
   }, {
     sort: {_id: -1},
@@ -58,9 +58,9 @@ app.put('/quotes', (req, res) => {
   })
 })
 
-app.put('/quotes/delete', (req, res) => {
+app.put('/items/delete', (req, res) => {
   //console.log(req.body);
-  db.collection('quotes')
+  db.collection('items')
   .findOneAndDelete({id: req.body.id},
   (err, result) => {
     if (err) return res.send(500, err)
