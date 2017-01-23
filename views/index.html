@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Vue ToDo</title>
+    <title>Vue To Do List</title>
 
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/modal.css">
@@ -38,8 +38,8 @@
 </script>
 
 <div id="app" class="panel-heading">
-  <p>{{ header }}</p>
   <div class="panel-body">
+    <p>{{ header }}</p>
     <div class="form-group">
       <input type="text" placeholder="Name" v-model="item.title">
       <input type="text" placeholder="Description" v-model="item.description">
@@ -53,14 +53,16 @@
 
       <h4 class="list-group-item-heading">
         <i class=""></i>
-        ID: {{ item.id }} <br/>
-        Title: {{ item.title  }}
+        Name: {{ item.title  }}
       </h4>
 
       <p class="list-group-item-text" v-if="item.description">Description: {{ item.description }}</p>
-
+      <p class="list-group-item-text">Completed: {{item.completed}}</p>
+      <br/>
       <button class="btn btn-xs btn-danger" v-on:click="deleteItem(index)">Delete</button>
       <button id="show-modal" @click="showModal = true">Update</button>
+      <button class="btn btn-xs" v-on:click="completeItem(index)">Complete</button>
+
     </div>
 
     <!-- use the modal component, pass in the prop -->

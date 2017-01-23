@@ -43,10 +43,11 @@ app.post('/items', (req, res) => {
 })
 
 app.put('/items', (req, res) => {
+  console.log(req.body);
   db.collection('items')
-  .findOneAndUpdate(req.body.id, {
+  .findOneAndUpdate({id:req.body.id}, {
     $set: {
-      item: req.body.item
+      'completed': req.body.completed
     }
   }, {
     sort: {_id: -1},
