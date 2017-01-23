@@ -62,7 +62,7 @@ var testVue = new Vue({
     completeItem: function(index) {
       console.log('Completed record index: ');
       console.log(index);
-      this.items[index].completed = true;
+      this.items[index].completed = !this.items[index].completed;
       console.log(this.items[index].completed);
       if(confirm(`Are you sure you want to complete this item at index ${index}?`)) {
         this.$http.put('items', this.items[index])
